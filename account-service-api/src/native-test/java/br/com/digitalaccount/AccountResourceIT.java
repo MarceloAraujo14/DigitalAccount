@@ -1,5 +1,6 @@
 package br.com.digitalaccount;
 
+import br.com.digitalaccount.account.AccountResourceTest;
 import io.quarkus.test.junit.QuarkusIntegrationTest;
 
 @QuarkusIntegrationTest

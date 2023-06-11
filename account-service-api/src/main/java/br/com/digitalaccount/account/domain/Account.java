@@ -2,6 +2,8 @@ package br.com.digitalaccount.account.domain;
 
 import lombok.*;
 
+import java.time.LocalDateTime;
+
 @Data
 @Builder
 @AllArgsConstructor
@@ -15,5 +17,9 @@ public class Account {
     private Long accountNumber;
 
     private Double balance;
+
+    private LocalDateTime datCreation;
+
+    private LocalDateTime datUpdate;
 
 }

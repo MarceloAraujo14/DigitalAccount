@@ -3,8 +3,10 @@ package br.com.digitalaccount.account.repository;
 import br.com.digitalaccount.account.domain.Account;
 import jakarta.enterprise.context.ApplicationScoped;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @ApplicationScoped
 public class AccountRepositoryImpl implements AccountRepository {
@@ -16,6 +18,7 @@ public class AccountRepositoryImpl implements AccountRepository {
                             .accountBranch(1)
                             .accountNumber(123456L)
                             .balance(500.00)
+                            .datCreation(LocalDateTime.of(2020,5,25,0,10))
                             .build()));
 
     public Account save(Account account){
@@ -31,6 +34,12 @@ public class AccountRepositoryImpl implements AccountRepository {
 
     public List<Account> listAll(){
         return accounts;
+    }
+
+    @Override
+    public Optional<Account> findByAccountBranchAndAccountNumber(Integer accountBranch, Long accountNumber) {
+        return accounts.stream().filter(account -> account.getAccountBranch().equals(accountBranch) && account.getAccountNumber().equals(accountNumber)).findFirst();
+
     }
 
 }

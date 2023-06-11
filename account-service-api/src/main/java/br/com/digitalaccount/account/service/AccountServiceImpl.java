@@ -3,12 +3,14 @@ package br.com.digitalaccount.account.service;
 import br.com.digitalaccount.account.domain.Account;
 import br.com.digitalaccount.account.repository.AccountRepositoryImpl;
 import br.com.digitalaccount.account.service.usecase.interfaces.ValidateAccount;
-import jakarta.enterprise.context.RequestScoped;
+import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
+import lombok.val;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
-@RequestScoped
+@ApplicationScoped
 public class AccountServiceImpl implements AccountService {
 
     @Inject
@@ -20,15 +22,15 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public Account newAccount(Account account) {
         validateAccount.execute(account);
+        account.setDatCreation(LocalDateTime.now());
         return accountRepository.save(account);
     }
 
     @Override
     public Account updateAccount(Integer accountId,Account account) {
-        Account accountToUpdate = accountRepository.findById(accountId);
-
+        val accountToUpdate = accountRepository.findById(accountId);
         accountToUpdate.setBalance(account.getBalance());
-
+        accountToUpdate.setDatUpdate(LocalDateTime.now());
         return accountRepository.save(accountToUpdate);
     }
 
